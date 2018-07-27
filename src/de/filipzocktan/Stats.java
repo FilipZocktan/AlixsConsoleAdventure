@@ -24,6 +24,10 @@ public class Stats {
             WaterBottle.units = units;
         }
 
+        public static void removeUnit() {
+            setUnits(getUnits()-1);
+        }
+
         public static void fillBottle(){
             setUnits(getMaxSize());
         }
@@ -46,8 +50,9 @@ public class Stats {
             return maxHealth;
         }
 
-        private static void setMaxHealth(double maxHealth) {
+        public static void setMaxHealth(double maxHealth) {
             Health.maxHealth = maxHealth;
+            regenerate();
         }
 
         public static double getArmorPoints() {
@@ -74,6 +79,7 @@ public class Stats {
                 setHealthPoints(getHealthPoints() - amount);
             } else {
                 double multiplier = 1-(1/100*getArmorPoints());
+                setHealthPoints(getHealthPoints() - (amount*multiplier));
             }
         }
 

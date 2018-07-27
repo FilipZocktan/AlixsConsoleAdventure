@@ -10,10 +10,16 @@ public class ConsoleAdventure {
     private final AdventureReader in;
     private Inventory inventory;
 
-    public ConsoleAdventure(int scenario) throws IOException {
+    public ConsoleAdventure(int scenario) throws Exception {
         this.scenario = scenario;
         this.in=new AdventureReader(new InputStreamReader(System.in));
         inventory = new Inventory(10);
+        Stats.WaterBottle.setMaxSize(15);
+        Stats.WaterBottle.fillBottle();
+        for(int i = 0;i<5;i++) {
+            Stats.WaterBottle.removeUnit();
+        }
+        Stats.Health.setMaxHealth(50);
         intro();
         startGame();
     }
@@ -21,7 +27,7 @@ public class ConsoleAdventure {
     public static void main(String[] args) {
         try {
             new ConsoleAdventure(chooseScenario());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -76,16 +82,21 @@ public class ConsoleAdventure {
                 print("Whenever you find something, you will be able to decide on whether you take it or not.");
                 print("But if you don't take it, the item will be lost and you will have to restart the game if you need it later.");
                 print("And hey, if you run out of storage, you can find new backpacks.");
+                print("Now I wish you good luck and a lot of fun on your expidition.");
+                print("");
+                print("[Press enter to go on.]");
+                in.readLine();
                 break;
         }
     }
 
-    private void startGame() throws IOException {
+    private void startGame() throws Exception {
         stageS();
     }
 
-    private void stageS() throws IOException {
-
+    private void stageS() throws Exception {
+        print("Do you want to go left or right?");
+        in.readLine(new String[]{"Left", "Right"});
     }
 
     public static void print(String msg){
